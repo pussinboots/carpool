@@ -1,0 +1,65 @@
+<div content-for="navbarAction">
+	<div class="btn btn-navbar">
+		<i class="fa fa-cog"></i> <a class="btn-group-item" href="/travis">Overview</a>
+	</div>
+</div>
+<div class="scrollable">
+	<div class="scrollable-content">
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-default">
+				<br />
+				<br />
+				<br />
+				<div>
+					<div><p>{{project.description}}</p></div>
+					<div ng-repeat="job in project.build.jobs" is-open="open">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								{{job.number}}
+								<a href="#" toggle target="collapse{{$index}}" ng-click="log(job)"><i class="fa fa-chevron-down"></i></a>
+							</h4>
+						</div>
+						<div id="collapse{{$index}}" toggleable active-class="in" exclusion-group="accordion1" class="panel-collapse collapse" >
+							<div class="panel-body">
+								<pre><code>{{job.log}}</code></pre>
+							</div>
+						</div>
+					</div>
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							commits
+							<a href="#" toggle target="collapsethree" ng-click="commits(project)"><i class="fa fa-chevron-down"></i></a>
+						</h4>
+					</div>
+					<div id="collapsethree" toggleable active-class="in" exclusion-group="accordion1" class="panel-collapse collapse" >
+						<div class="panel-body">
+							<li class="row" ng-repeat="commit in project.commits">
+								<span>{{commit.commit.author.name}}</span>
+								<span>{{commit.commit.message}}</span>
+								<span>{{commit.commit.author.date}}</span>
+							</li>
+						</div>
+					</div>
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							builds
+							<a href="#" toggle target="collapsefour" ng-click="builds(project)"><i class="fa fa-chevron-down"></i></a>
+						</h4>
+					</div>
+					<div id="collapsefour" toggleable active-class="in" exclusion-group="accordion1" class="panel-collapse collapse" >
+						<div class="panel-body">
+							<li class="row" ng-repeat="build in project.builds">
+								<span class="{{build.state}}"><i class="status"></i></span>
+								<span>{{build.state}}</span>
+								<span><a href="#" ng-click="setbuild(project, build.id)">{{build.number}}</a></span>
+								<span>{{build.duration}}</span>
+								<span>{{build.finished_at}}</span>
+							</li>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

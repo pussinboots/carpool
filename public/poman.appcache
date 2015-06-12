@@ -1,0 +1,43 @@
+CACHE MANIFEST
+# 2014-06-12:v1
+
+CACHE:
+/favicon.ico
+index.html
+css/directives/datatable.css
+images/gray.png
+images/green.png
+images/red.png
+images/yellow.png
+js/app.js
+js/controllers.js
+js/services.js
+js/directives/data-table.js
+partials/details.html
+partials/jobs.html
+partials/new-project.html
+partials/overview.html
+partials/settings.html
+components/bootstrap/dist/css/bootstrap.css
+components/jquery/dist/jquery.js
+components/angular/angular.js
+components/ngstorage/ngStorage.js
+components/oauth-ng/dist/oauth-ng.js
+components/bootstrap/dist/js/bootstrap.js
+components/angular-cookies/angular-cookies.js
+components/angular-resource/angular-resource.js
+components/angular-route/angular-route.js
+components/prettify/index.js
+components/ng-clip/dest/ng-clip.min.js
+components/fastclick/lib/fastclick.js
+components/mobile-angular-ui/dist/js/mobile-angular-ui.min.js
+components/angularjs-decode-uri/public/js/lib/angularjs-decode-uri.js
+components/angular-pusher/angular-pusher.js
+components/mobile-angular-ui/dist/css/mobile-angular-ui-base.css
+components/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.css
+components/zeroclipboard/ZeroClipboard.js
+components/ng-clip/dest/ng-clip.js
+
+# Resources that require the user to be online.
+NETWORK:
+*

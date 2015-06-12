@@ -1,0 +1,103 @@
+<h1>Projects</h1>
+Refresh timeout in mili seconds (min 1000)<input type="text" ng-model="interval" />
+<div ng-repeat="project in projects.projects">
+	<h1>
+		<a ng-href="https://github.com/{{projects.repo}}/{{project.name}}" target="_blank">
+			{{project.name}}
+		</a>
+	</h1>
+	<p>
+		<a ng-href="https://travis-ci.org/{{projects.repo}}/{{project.name}}" target="_blank">
+			<img ng-src="https://travis-ci.org/{{projects.repo}}/{{project.name}}.svg?branch=master&{{rand}}" style="max-width:100%;">
+		</a>
+		<a ng-href="https://coveralls.io/r/{{projects.repo}}/{{project.name}}?branch=master" target="_blank">
+			<img ng-src="https://coveralls.io/repos/{{projects.repo}}/{{project.name}}/badge.png?branch=master&{{rand}}" style="max-width:100%;">
+		</a>
+		<a ng-href="https://david-dm.org/{{projects.repo}}/{{project.name}}" target="_blank">
+			<img ng-src="https://david-dm.org/{{projects.repo}}/{{project.name}}.png?{{rand}}" style="max-width:100%;">
+		</a>
+		<a ng-show="project.deployment.type=='heroku'" ng-href="https://{{project.deployment.app||project.name}}.herokuapp.com" target="_blank">
+			<img ng-src="http://heroku-badge.heroku.com/?app={{project.deployment.app||project.name}}&{{rand}}" alt="heroku" style="max-width:100%;">
+		</a>
+		<a ng-href="https://gitter.im/{{projects.repo}}/{{project.name}}" target="_blank">
+			<img ng-src="https://badges.gitter.im/{{projects.repo}}/{{project.name}}.png" alt="gitter" style="max-width:100%;">
+		</a>
+	</p>
+	<div>
+		<p>
+			 <div style="cursor:pointer;" ng-model="collapsed" ng-click="collapsed=!collapsed"><strong>MarkDown</strong></div>
+		</p>
+		<pre ng-show="collapsed">
+[![Build Status](https://travis-ci.org/{{projects.repo}}/{{project.name}}.svg?branch=master)](https://travis-ci.org/{{projects.repo}}/{{project.name}})
+[![Coverage Status](https://img.shields.io/coveralls/{{projects.repo}}/{{project.name}}.svg)](https://coveralls.io/r/{{projects.repo}}/{{project.name}}?branch=master)
+[![Dependencies](https://david-dm.org/{{projects.repo}}/{{project.name}}.png)](https://david-dm.org/{{projects.repo}}/{{project.name}})
+[![Heroku](http://heroku-badge.heroku.com/?app={{project.deployment.app||project.name}})](https://{{project.deployment.app||project.name}}.herokuapp.com)
+[![Gitter chat](https://badges.gitter.im/{{projects.repo}}/{{project.name}}.png)](https://gitter.im/{{projects.repo}}/{{project.name}})
+		</pre>
+	</div>
+	<div>
+		<p>
+			 <div style="cursor:pointer;" ng-model="collapsed" ng-click="collapsed=!collapsed"><strong>Html</strong></div>
+		</p>
+		<pre ng-show="collapsed">
+<textarea disabled="true" style="height:250px; width:100%; border: none;background-color:white;">
+<a href="https://travis-ci.org/{{projects.repo}}/{{project.name}}">
+	<img src="https://travis-ci.org/{{projects.repo}}/{{project.name}}.svg?branch=master&{{rand}}" style="max-width:100%;">
+</a>
+<a href="https://coveralls.io/r/{{projects.repo}}/{{project.name}}?branch=master">
+	<img src="https://coveralls.io/repos/{{projects.repo}}/{{project.name}}/badge.png?branch=master&{{rand}}" style="max-width:100%;">
+</a>
+<a href="https://david-dm.org/{{projects.repo}}/{{project.name}}">
+	<img src="https://david-dm.org/{{projects.repo}}/{{project.name}}.png?{{rand}}" style="max-width:100%;">
+</a>
+<a href="https://{{project.deployment.app||project.name}}.herokuapp.com">
+	<img src="http://heroku-badge.heroku.com/?app={{project.deployment.app||project.name}}&{{rand}}" alt="heroku failed" style="max-width:100%;">
+</a>
+<a href="https://gitter.im/{{projects.repo}}/{{project.name}}" target="_blank">
+	<img src="https://badges.gitter.im/{{projects.repo}}/{{project.name}}.png" alt="gitter" style="max-width:100%;">
+</a>
+</textarea>
+		</pre>
+	</div>
+	<div>
+		<p>
+			<div style="cursor:pointer;" ng-model="collapsed" ng-click="collapsed=!collapsed"><strong>Heroku</strong></div>
+		</p>
+		<pre ng-show="collapsed">
+heroku create {{project.name}}
+heroku logs --app {{project.name}}
+		</pre>
+	</div>
+	<div>
+		<p>
+			 <div style="cursor:pointer;" ng-model="collapsed" ng-click="collapsed=!collapsed"><strong>Travis Ci</strong></div>
+		</p>
+		<pre ng-show="collapsed">
+travis encrypt $(heroku auth:token) --add deploy.api_key
+<div ng-controller="GithubController">{{content}}</div>
+		</pre>
+	</div>
+	<div>
+		<p>
+			 <div style="cursor:pointer;" ng-model="collapsed" ng-click="collapsed=!collapsed"><strong>Github</strong></div>
+		</p>
+		<pre ng-show="collapsed">
+git init
+git add .
+git commit -am "first commit"
+git remote add origin git@github.com:{{projects.repo}}/{{project.name}}.git
+git push -u origin master
+		</pre>
+	</div>
+</div>
+
+<div ng-repeat="tool in tools">
+	<h1>
+		<a ng-href="{{tool.link}}">{{tool.name}}</a>
+	</h1>
+	<p>
+		<div>{{tool.description}}</div>
+		<div>{{tool.type}}</div>
+		<div>{{tool.language}}</div>
+	</p>
+</div>

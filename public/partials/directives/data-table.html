@@ -1,0 +1,29 @@
+<div class="text-center">
+    <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+    ng-change="pageChanged()" class="pagination-sm" previous-text="&lsaquo;"
+    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+</div>
+
+<div>
+    <span class="label label-default" ng-show="sortColumn">{{sortColumn}}</span>
+</div>
+<ul class="table">
+    <div class="header">
+        <li class="row">
+            <span class="span2 sortable">Project</span>
+            <span class="span2 sortable">Build</span>
+            <span class="span2 sortable">Coverage</span>
+            <span class="span2 sortable">Dependencies</span>
+            <span class="span2 sortable">Usage</span>	    
+            <span class="span2 sortable">Deployment</span>
+            <span class="span2 sortable">Gitter</span>
+        </li>
+    </div>
+    <div class="body" ng-transclude>
+    </div>
+</ul>
+<div class="text-center">
+    <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+    ng-change="pageChanged()" class="pagination-sm" previous-text="&lsaquo;"
+    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+</div>

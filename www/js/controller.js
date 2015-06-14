@@ -1,5 +1,5 @@
 'use strict';
-angular.module('controller', []).controller('controller', ['$scope', 'GeoService', function ($scope, GeoService) {
+angular.module('controller', []).controller('controller', ['$scope', 'WalkerService', 'GeoService', 'RouteService', function ($scope, WalkerService, GeoService, RouteService) {
 //app.controller("controller", function ($scope, GeoService){
 	
 	// Fetch Device info from Device Plugin
@@ -29,26 +29,27 @@ angular.module('controller', []).controller('controller', ['$scope', 'GeoService
 
 	$scope.uploadWalkerGeoLoc = function() {
 		var onSuccess = function(position) {
-			GeoService.uploadWalkerPos(position);
+			WalkerService.uploadPosition({deviceId:device.uuid}, position);
 		};
 		navigator.geolocation.getCurrentPosition(onSuccess);
 
 	};
 
-	$scope.watchWalkerGeoLoc = function() {
+	$scope.startRoute = function() {
 		var onSuccess = function(position) {
 			$scope.vibrateNotify();
-			GeoService.uploadWalkerPos(position);
+			GeoService.uploadPosition({deviceId:device.uuid, routeId:$scope.route._id}, position);
 		};
 		var options = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }
 		if ($scope.watchId) {
 			navigator.geolocation.clearWatch($scope.watchId);
 		}
+		$scope.route = RouteService.startRoute({deviceId:device.uuid},{name:'Meine neue Route'});
 		$scope.watchId = navigator.geolocation.watchPosition(onSuccess, null, options);
-
 	};
 
-	$scope.stopWatchGeoLoc = function() {
+	$scope.endRoute = function() {
+		RouteService.endRoute({deviceId:device.uuid},{routeId:$scope.route._id, name:"Meine neue Route"});
 		if ($scope.watchId) {
 			navigator.geolocation.clearWatch($scope.watchId);	
 		}

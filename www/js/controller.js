@@ -55,6 +55,13 @@ angular.module('controller', []).controller('controller', ['$scope', 'WalkerServ
 		}
 	};
 
+	$scope.findNearDrivers = function() {
+		var onSuccess = function(position) {
+			WalkerService.findNearDrivers({deviceId:device.uuid}, position);
+		};
+		navigator.geolocation.getCurrentPosition(onSuccess);
+	};
+
 	// Makes a beep sound
 	$scope.beepNotify = function() {
 		navigator.notification.beep(1);

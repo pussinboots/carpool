@@ -35,6 +35,9 @@ var Position = mongoose.model('Position', positionSchem);
 var Device = mongoose.model('Device', deviceSchem);
 
 
+
+
+
 // sets up connect and adds other middlewares to parse query, parameters, content and session
 // use the ones you need
 var connectApp = connect()
@@ -145,10 +148,36 @@ function updatePosition( request, content, callback ){
 	});
 }
 
+function findNearDrivers( request, content, callback ){
+	log(request, content);
+	if(!request.parameters.maxDistance) 
+		request.parameters.maxDistance = 5000;
+	console.log("longitude" + request.parameters.longitude);
+	console.log("latitude" + request.parameters.latitude);
+    Geo.find({
+		   loc: {
+		     $near: {
+		       $geometry: { type: 'Point', coordinates: [request.parameters.longitude, request.parameters.latitude] },
+		       $maxDistance: parseInt(request.parameters.maxDistance)
+		     }
+		   }}
+    	, function (err, geo) {
+	  if (err) {
+	  	console.log(err);
+	  	callback(null, err);
+	  } else {
+	  	console.log(JSON.stringify( geo));
+	  	callback(null, geo);
+	  }
+	  // saved!
+	});
+}
+
 rest.get( [ { path: '/status' } ], status );
 rest.post( [ { path: '/driver/route/start/:deviceId' } ], startRoute );
 rest.post( [ { path: '/driver/route/position/:routeId/:deviceId' } ], updateRoutePosition );
 rest.post( [ { path: '/driver/route/end/:deviceId' } ], endRoute );
 rest.post( [ { path: '/walker/position/:deviceId' } ], updatePosition );
+rest.get( [ { path: '/walker/find/:deviceId' } ], findNearDrivers );
 
 connectApp.listen(port);

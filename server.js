@@ -4,9 +4,11 @@ rest = require('connect-rest'),
 bodyParser = require('body-parser'),
 mongoose = require('mongoose'),
 ObjectId = mongoose.Schema.Types.ObjectId;
-mongoose.connect('mongodb://localhost/carpool');
 
 var port = Number(process.env.PORT || 9000);
+var mongoURL = Number(process.env.MONGOLAB_URI || 'mongodb://localhost/carpool');
+
+mongoose.connect(mongoURL);
 
 var geoSchem = mongoose.Schema({
 	timestamp: Date, routeId: ObjectId,

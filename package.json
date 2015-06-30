@@ -14,6 +14,8 @@
   "main": [
     "server.js"
   ],
-  "scripts": {},
+  "scripts": {
+    "postinstall": "./fix_mode_modules.sh"
+  },
   "devDependencies": {}
 }

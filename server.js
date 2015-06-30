@@ -6,13 +6,14 @@ mongoose = require('mongoose'),
 ObjectId = mongoose.Schema.Types.ObjectId;
 
 var port = Number(process.env.PORT || 9000);
-var mongoURL = Number(process.env.MONGOLAB_URI || 'mongodb://localhost/carpool');
+var mongoURL = process.env.MONGOLAB_URI || 'mongodb://localhost/carpool';
 
+console.log(mongoURL);
 mongoose.connect(mongoURL);
 
 var geoSchem = mongoose.Schema({
 	timestamp: Date, routeId: ObjectId,
-	deviceId: String, loc: {type: {type:String}, coordinates: {type:Array} },
+	deviceId: String, loc: {type: {type:String}, coordinates: {type:Array, index:'2d'} },
 	coords: { latitude: Number, longitude: Number, altitude: Number, accuracy: Number, altitudeAccuracy: Number, heading: Number, speed: Number }
 });
 
@@ -22,7 +23,7 @@ var deviceSchem = mongoose.Schema({
 
 var positionSchem = mongoose.Schema({
 	timestamp: Date, deviceId: String,
-	loc: {type: {type:String}, coordinates: {type:Array}},
+	loc: {type: {type:String}, coordinates: {type:Array, index:'2d'}},
 	coords: { latitude: Number, longitude: Number, altitude: Number, accuracy: Number, altitudeAccuracy: Number, heading: Number, speed: Number }
 });
 
